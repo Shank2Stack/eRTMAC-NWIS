@@ -1,0 +1,92 @@
+{
+  "model_version": "1.0.0",
+  "trained_at": "2026-09-10T11:56:39.968267+00:00",
+  "features": [
+    "depth_m",
+    "ROP",
+    "WOB",
+    "RPM",
+    "Torque",
+    "mud_flow_rate",
+    "mud_pressure",
+    "mud_loss_rate",
+    "mud_weight"
+  ],
+  "drilling_anomaly": {
+    "model_type": "IsolationForest",
+    "task": "Drilling Behaviour Anomaly Detection",
+    "features": [
+      "depth_m",
+      "ROP",
+      "WOB",
+      "RPM",
+      "Torque",
+      "mud_flow_rate",
+      "mud_pressure",
+      "mud_loss_rate",
+      "mud_weight"
+    ],
+    "feature_medians": {
+      "depth_m": 2507.4,
+      "ROP": 15.26,
+      "WOB": 115.8,
+      "RPM": 104.0,
+      "Torque": 12.82,
+      "mud_flow_rate": 1594.25,
+      "mud_pressure": 120.445,
+      "mud_loss_rate": 0.26,
+      "mud_weight": 1.2465
+    },
+    "training_samples": 2650,
+    "n_normal": 1764,
+    "n_elevated": 791,
+    "n_critical": 95,
+    "note": "Unsupervised anomaly detection. Anomaly score 0-1 is an unusual operating-state indicator, NOT a calibrated failure probability. No labels were invented. Thresholds: Normal <= 0.35, Elevated <= 0.65, Critical > 0.65."
+  },
+  "gas_classifier": {
+    "model_type": "RandomForestClassifier",
+    "task": "Gas Safety Classification (CH4 / H2S)",
+    "features": [
+      "Methane_PPM",
+      "H2S_PPM",
+      "H2S_Sensor_1_PPM",
+      "H2S_Sensor_2_PPM",
+      "Temperature_C",
+      "Humidity_Percent",
+      "MQ2",
+      "MQ3",
+      "MQ5",
+      "MQ6",
+      "MQ7",
+      "MQ8",
+      "MQ135"
+    ],
+    "classes": [
+      "Critical",
+      "Gas Event",
+      "Warning"
+    ],
+    "training_samples": 16000,
+    "test_samples": 4000,
+    "weighted_f1": 0.9993,
+    "note": "Supervised classifier on real gas sensor labels from standalone CH4&H2S dataset. Has no well_id linkage."
+  },
+  "vibration_health": {
+    "model_type": "RandomForestClassifier",
+    "task": "Equipment Health Classification",
+    "features": [
+      "vibration_proxy_index",
+      "rpm",
+      "torque_nm",
+      "tool_wear_min"
+    ],
+    "classes": [
+      "Critical",
+      "Normal"
+    ],
+    "training_samples": 8000,
+    "test_samples": 2000,
+    "weighted_f1": 0.9751,
+    "note": "Supervised classifier on equipment_health labels from vibration dataset."
+  }
+}

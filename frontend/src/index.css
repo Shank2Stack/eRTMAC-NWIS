@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-ivory-100 text-ink-900 overflow-hidden;
+  }
+
+  .dark body {
+    @apply bg-night-950 text-ivory-200;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-ink-200 rounded-full;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    @apply bg-night-600;
+  }
+}
+
+/* ─── Components ───────────────────────────────────────────────────────────── */
+@layer components {
+  /* Numeric display — always use IBM Plex Mono */
+  .num {
+    font-family: 'IBM Plex Mono', Consolas, monospace;
+  }
+
+  /* Card base */
+  .card {
+    @apply bg-white border border-ivory-300 rounded-sm;
+  }
+  .dark .card {
+    @apply bg-night-900 border-night-700;
+  }
+
+  /* Sidebar nav item */
+  .nav-item {
+    @apply flex items-center gap-3 px-4 py-2.5 rounded-sm
+           text-ink-600 hover:text-ink-900 hover:bg-ivory-200
+           transition-colors duration-150 cursor-pointer select-none;
+  }
+  .dark .nav-item {
+    @apply text-night-400 hover:text-ivory-200 hover:bg-night-800;
+  }
+
+  /* Active nav item */
+  .nav-item-active {
+    @apply nav-item text-gold border-l-2 border-gold bg-gold-50
+           hover:bg-gold-50 hover:text-gold;
+  }
+  .dark .nav-item-active {
+    @apply bg-night-800 border-gold text-gold hover:bg-night-800;
+  }
+
+  /* Section label */
+  .section-label {
+    @apply text-[10px] font-semibold tracking-[0.15em] uppercase text-ink-400 select-none;
+  }
+  .dark .section-label {
+    @apply text-night-500;
+  }
+
+  /* Divider */
+  .divider {
+    @apply border-t border-ivory-300;
+  }
+  .dark .divider {
+    @apply border-night-700;
+  }
+
+  /* Risk badge base */
+  .badge {
+    @apply inline-flex items-center justify-center px-2 py-0.5
+           text-[10px] font-semibold tracking-widest uppercase rounded-sm;
+  }
+}
+
+/* ─── Utilities ────────────────────────────────────────────────────────────── */
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ─── Three.js canvas fills parent ────────────────────────────────────────── */
+.three-canvas canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
